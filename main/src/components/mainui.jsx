@@ -1,7 +1,12 @@
+import Error from "./error";
 import Loader from "./loader";
 
+
 export default function MainUI(props) {
-  let { mainData } = props;
+  let { mainData,error } = props;
+  if(error){
+      return <Error error={error} />
+  }
   if (!mainData.length) {
     return <Loader />;
   }
@@ -14,7 +19,7 @@ export default function MainUI(props) {
           return (
             <li key={index} className="single-gif" >
                 <img src={gif.images.preview_gif.url} alt={gif.username} />
-                <h1 className="gif-title" >{gif.title}</h1>
+                <h1 className="gif-title" > <span>Title: </span> { gif.title}</h1>
             </li>
           );
         })}

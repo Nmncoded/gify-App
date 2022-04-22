@@ -58,6 +58,7 @@ body {
   max-width: 1068px;
   width: 100%;
   margin: 16px auto;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* loader */
@@ -88,7 +89,7 @@ body {
 .bouncing-loader > div {
   width: 16px;
   height: 16px;
-  margin: 3rem 0.2rem;
+  margin: 9rem 0.2rem 3rem 0.2rem;
   background: #8385aa;
   border-radius: 50%;
   -webkit-animation: bouncing-loader 0.6s infinite alternate;
@@ -107,6 +108,11 @@ body {
 
 /* search-bar */
 .header {
+  position: fixed;
+  background-color: #F5F5FA;
+  top: 0px;
+  left: 0;
+  right: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -116,7 +122,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 16px 16px 48px 16px;
+  padding: 16px 0;
+  margin: 0px 16px 0px 16px;
 }
 
 .search-bar {
@@ -194,6 +201,7 @@ body {
   width: 34px;
   height: 34px;
   color: white;
+  cursor: pointer;
   font-size: 20px;
   right: 12px;
   top: calc(50% - 34px/2);
@@ -206,7 +214,7 @@ body {
 /* Main-UI */
 .main-gif-ui {
   padding: 16px;
-  margin: 16px;
+  margin: 96px 16px 16px 16px;
 }
 
 .all-gifs {
@@ -252,24 +260,18 @@ body {
   font-size: 18px;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.2;
-  font-weight: 250;
+  font-weight: 350;
 }
 
-.button-shrink {
-  color: #65b5f6;
-  background-color: transparent;
-  border: 1px solid #65b5f6;
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 8px;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+.gif-title span {
+  color: #7878AB;
+  font-weight: 650;
+  line-height: 1.2;
+  margin-bottom: 8px;
 }
 
-.button-shrink:hover {
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
+.gif-title span:hover {
+  border-bottom: 2px solid rgba(120, 120, 171, 0.9);
 }
 
 .MuiPagination-root {
@@ -283,5 +285,12 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.err-msg {
+  color: red;
+  margin: 96px 16px 36px 16px;
+  line-height: 1.2;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

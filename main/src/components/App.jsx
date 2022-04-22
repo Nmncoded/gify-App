@@ -6,34 +6,36 @@ import SearchBar from './searchbar'
 
 
 function App(){
-    let timerId = 0;
+    // let timerId = 0;
     let limit = 9;
     let [totalCount,setTotalCount] = useState(0);
-    let [mainData, setMainData] = useState({});
+    let [mainData, setMainData] = useState([]);
     let [error,setError] = useState("");
     let [inputValue,setInputValue] = useState("");
     let [offset,setOffset] = useState(0);
   
       useEffect(() => {
-        fetchData()
-      },[offset,limit])
-
-      useEffect(() => {
-        //   console.log(timerId)
-        clearTimeout(timerId);
-        timerId = setTimeout(() => {
-            // console.log("debouncing");
-            // setInputValue(inputValue = value);
+        setTimeout(() => {
             fetchData()
-        },600)
-      },[inputValue])
+        },1000)
+      },[offset])
+
+      const handleClick= () => {
+          setMainData([]);
+          setTotalCount(0);
+          fetchData();
+          setInputValue("");
+      }
   
       const handleInput = ({target}) => {
         let {value} = target;
+        setError("");
+        setMainData([]);
+        setTotalCount(0);
         setInputValue(value);
       }
       const fetchData = () => {
-        let key = "GlVGYHkr3WSBnllca54iNt0yFbjz7L65"
+        let key = "GlVGYHkr3WSBnllca54iNt0yFbjz7L65";
         fetch(`https://api.giphy.com/v1/gifs/${!inputValue ? "trending" : "search"}?api_key=${key}&limit=${limit}&offset=${offset}${inputValue ? `&q=${inputValue}` : "" }`)
         .then(res => {
           // console.log(res)
@@ -44,11 +46,15 @@ function App(){
           }
         })
         .then(mainData => {
-          setMainData(mainData.data);
-          setTotalCount(mainData.pagination.total_count % 9 === 0 ? mainData.pagination.total_count : (mainData.pagination.total_count - mainData.pagination.total_count % 9) );
+            if(!mainData.data.length){
+                setError("No match found !!!")
+            }else{
+                setMainData(mainData.data);
+                setTotalCount(mainData.pagination.total_count % 9 === 0 ? mainData.pagination.total_count : (mainData.pagination.total_count - mainData.pagination.total_count % 9) );
+            }
         })
         .catch(err => {
-          setError(`Error: `+ err)
+          setError(`Error: Check your internet connection` )
         })
       }
     //   console.log(totalCount)
@@ -68,11 +74,10 @@ function App(){
 
       return (
           <>
-              <SearchBar inputValue={inputValue} handleInput={handleInput} />
-              <MainUI mainData={mainData} />
-              {/* <Pagination offset={offset} limit={limit} handleOffset={handleOffset} /> */}
-              <Pagination count={totalCount/9} onChange={(event,page) => handleOffset(page) } shape="rounded" color="primary" />
-          </>
+              <SearchBar inputValue={inputValue} handleClick={handleClick} handleInput={handleInput} />
+              <MainUI mainData={mainData} error={error} />
+              <Pagination count={totalCount/9} onChange={(event,page) => handleOffset(page) }  disabled={error ? true : ""} shape="rounded" color="primary" />
+          </>   
       )
 }
 export default App
