@@ -10,7 +10,6 @@ export default function MainUI(props) {
   if (!mainData.length) {
     return <Loader />;
   }
-//   console.log(mainData);
   return (
     <article className="main-gif-ui">
       <ul className="all-gifs" >
